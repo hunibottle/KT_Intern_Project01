@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.developia.memberProject.mapper.UserMapper">
+
+	<insert id="insertUser">
+		<selectKey keyProperty="user_seq" order="BEFORE" resultType="int">
+			select seq_user.nextval from dual
+		</selectKey>
+		
+		insert into tbl_user(
+			user_seq,
+			user_id,
+			user_pw,
+			user_name,
+			user_department,
+			user_phone,
+			user_state,
+			user_category,
+			user_work
+		) values(
+			#{user_seq},
+			#{user_id},
+			#{user_pw},
+			#{user_name},
+			#{user_department},
+			#{user_phone},
+			'출근',
+			#{user_category},
+			#{user_work}
+		)
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into tbl_auth
+		values(
+			#{userNum},
+			'ROLE_USER'
+		)
+	</insert>
+
+	<select id="getUserList" resultType="com.developia.memberProject.domain.UserVO">
+	select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where user_department = '고객관리시스템'
+	</select>
+	
+	<select id="getUserDetail" resultType="map">
+		select * from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where tu.user_seq = #{userNO}
+	</select>
+	
+	<select id="getSearchList" resultType="map">
+	select * from tbl_user tu inner join tbl_work_detail twd on tu.user_work = twd.work_name 
+	<bind name="options" value="option"/>
+	<if test="options == 1">
+		where work_content like '%'||#{keyword}||'%'
+	</if>
+	<if test="options == 10">
+		where user_department like '%'||#{keyword}||'%'
+	</if>
+	<if test="options == 25">
+		where user_category like '%'||#{keyword}||'%'
+	</if>
+	<if test="options == 50">
+		where user_work like '%'||#{keyword}||'%'
+	</if>
+	<if test="options == 100">
+		where user_name like '%'||#{keyword}||'%'
+	</if>
+	</select>
+	
+	<select id="sort_user" resultType="map">
+	select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where user_department = #{sortValue}
+	</select>
+	
+	<select id="autocomplete" parameterType="map" resultType="map">
+	select
+	<bind name="options" value="option"/>
+	<if test="options == 1">
+		user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+        where twd.work_content like '%'||#{value}||'%'
+        or user_name like '%'||#{value}||'%'
+        or user_category like '%'||#{value}||'%'
+        or user_work like '%'||#{value}||'%'
+	</if>
+	<if test="options == 10">
+		distinct user_department from tbl_user where user_department like '%'||#{value}||'%'
+	</if>
+	<if test="options == 25">
+		distinct user_category from tbl_user where user_category like '%'||#{value}||'%'
+	</if>
+	<if test="options == 50">
+		distinct user_work from tbl_user where user_work like '%'||#{value}||'%'
+	</if>
+	<if test="options == 100">
+		distinct user_name from tbl_user where user_name like '%'||#{value}||'%'
+	</if>
+	</select>
+	
+	<select id="sortTeam" resultType="map">
+	select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where user_team = #{teamValue}
+	</select>
+	
+	<select id="sortName" resultType="map">
+	<bind name="options" value="orderOption"/>
+	<if test='options == "올림"'>
+		select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where user_department = #{gValue}
+        order by user_name
+	</if>
+	<if test='options == "내림"'>
+	select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
+		inner join tbl_work_detail twd
+		on tu.user_work = twd.work_name
+		where user_department = #{gValue}
+        order by user_name desc
+	</if>
+	</select>
+	
+	
+</mapper>
