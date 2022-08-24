@@ -89,7 +89,7 @@
         where twd.work_content like '%'||#{value}||'%'
         or user_name like '%'||#{value}||'%'
         or user_category like '%'||#{value}||'%'
-        or user_work like '%'||#{value}||'%'
+        or user_work like '%'||#{value}||'%' 
 	</if>
 	<if test="options == 10">
 		distinct user_department from tbl_user where user_department like '%'||#{value}||'%'
@@ -114,18 +114,14 @@
 	
 	<select id="sortName" resultType="map">
 	<bind name="options" value="orderOption"/>
-	<if test='options == "올림"'>
-		select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
-		inner join tbl_work_detail twd
-		on tu.user_work = twd.work_name
-		where user_department = #{gValue}
-        order by user_name
-	</if>
-	<if test='options == "내림"'>
 	select user_department, user_position, user_category, user_name, user_phone, user_work, twd.work_content from tbl_user tu
 		inner join tbl_work_detail twd
 		on tu.user_work = twd.work_name
 		where user_department = #{gValue}
+	<if test='options == "올림"'>
+        order by user_name
+	</if>
+	<if test='options == "내림"'>
         order by user_name desc
 	</if>
 	</select>
