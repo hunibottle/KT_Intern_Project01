@@ -110,6 +110,7 @@
 		inner join tbl_work_detail twd
 		on tu.user_work = twd.work_name
 		where user_team = #{teamValue}
+		order by user_name
 	</select>
 	
 	<select id="sortName" resultType="map">

@@ -10,6 +10,10 @@
     .table{
     	font-family: 'Do Hyeon' sans-serif;
     }
+    
+    .hoverClass:hover{
+    	background-color:#787878;
+    }
     </style>
             <div class="row">
                 <!-- <div class="col-lg-12">
@@ -362,16 +366,16 @@
                                 <table class="table" style="font-weight: bolder">
                                     <thead>
                                         <tr>
-                                            <td colspan='8' bgcolor="#E0FFFF" style="text-align: center; font-size: 20px">IT팀 자리 배치도</td>
+                                            <td colspan='8' bgcolor="#ddd" style="text-align: center; font-size: 20px">IT팀 자리 배치도</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     	<tr>
-	                                    	<td colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer; margin:auto" onClick="team('기획')">기획</td>
+	                                    	<td class='hoverClass' colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer; margin:auto" onClick="team('기획')">IT기획</td>
 	                                    	<td rowspan='7'></td>
 	                                    	<td rowspan='2' colspan='2' style="vertical-align : middle; font-size: 20px; margin:auto">최돈무 팀장</td>
 	                                    	<td rowspan='7'></td>
-	                                    	<td colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('정보보호')">정보보호파트</td>
+	                                    	<td class='hoverClass' colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('정보보호')">정보보호</td>
                                     	</tr>
                                         <tr>
                                             <td>박진석 대리</td>
@@ -387,8 +391,8 @@
                                         </tr>
                                         
                                         <tr>
-	                                    	<td colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('개발')">개발</td>
-	                                    	<td colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('인프라')">인프라</td>
+	                                    	<td class='hoverClass' colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('개발')">IT개발 지원</td>
+	                                    	<td class='hoverClass' colspan='2' bgcolor="#F5F5F5" style="font-size: 22px; vertical-align : middle; cursor:pointer" onClick="team('인프라')">IT운영 지원</td>
 	                                    	<!-- <td colspan='4'></td> -->
                                     	</tr>
                                         <tr>
